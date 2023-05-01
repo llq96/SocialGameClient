@@ -1,32 +1,43 @@
 using UnityEngine;
+using VladB.SGC.Messenger;
 using Zenject;
 
-public class MainInstaller : MonoInstaller
+namespace VladB.SGC
 {
-    [SerializeField] private MessengerViewController _messengerViewController;
-    [SerializeField] private MockMessagesModel _mockMessagesModel;
-
-    public override void InstallBindings()
+    public class MainInstaller : MonoInstaller
     {
-        Container.Bind<WebRequester>().FromInstance(new WebRequester()).AsSingle().NonLazy();
-        Container.Bind<MessengerViewController>().FromInstance(_messengerViewController).AsSingle().NonLazy();
-        Container.Bind<MessagesKeeper>().FromInstance(new MessagesKeeper()).AsSingle().NonLazy();
-        Container.Bind<IMessagesModel>().FromInstance(_mockMessagesModel).AsSingle().NonLazy();
-    }
+        [SerializeField] private MessagesScrollController _messagesScrollController;
+        [SerializeField] private MockMessagesModel _mockMessagesModel;
+        [SerializeField] private MessageSenderView _messageSenderView;
 
-    public override void Start()
-    {
-        Init();
-    }
+        public override void InstallBindings()
+        {
+            Container.Bind<WebRequester>().FromInstance(new WebRequester()).AsSingle().NonLazy();
+            Container.Bind<MessagesScrollController>().FromInstance(_messagesScrollController).AsSingle().NonLazy();
+            Container.Bind<MessagesKeeper>().FromInstance(new MessagesKeeper()).AsSingle().NonLazy();
+            Container.Bind<IMessagesModel>().FromInstance(_mockMessagesModel).AsSingle().NonLazy();
 
-    public void Init()
-    {
-        Container.Resolve<WebRequester>().Init();
+            Container.Bind<MessageSenderViewModel>().FromInstance(new MessageSenderViewModel()).AsSingle().NonLazy();
+            Container.Bind<MessageSenderView>().FromInstance(_messageSenderView).AsSingle().NonLazy();
+        }
 
-        Container.Resolve<IMessagesModel>().Init();
-        Container.Resolve<MessagesKeeper>().Init(Container.Resolve<IMessagesModel>());
-        _messengerViewController.Init(Container.Resolve<MessagesKeeper>());
+        public override void Start()
+        {
+            Init();
+        }
 
-        Debug.Log("All Inited");
+        public void Init()
+        {
+            Container.Resolve<WebRequester>().Init();
+
+            Container.Resolve<IMessagesModel>().Init();
+            Container.Resolve<MessagesKeeper>().Init(Container.Resolve<IMessagesModel>());
+            _messagesScrollController.Init(Container.Resolve<MessagesKeeper>());
+
+            Container.Resolve<MessageSenderViewModel>().Init(Container.Resolve<MessagesKeeper>());
+            Container.Resolve<MessageSenderView>().Init(Container.Resolve<MessageSenderViewModel>());
+
+            Debug.Log("All Inited");
+        }
     }
 }

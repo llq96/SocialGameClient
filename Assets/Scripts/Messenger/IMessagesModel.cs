@@ -1,11 +1,17 @@
 using System.Collections.Generic;
 
-public interface IMessagesModel
+namespace VladB.SGC.Messenger
 {
-    public void Init();
-    public List<MessageInfo> GetLastMessages();
+    public interface IMessagesModel
+    {
+        public void Init();
+        public List<MessageInfo> GetLastMessages();
 
-    public event MessageDelegate OnNewMessageRecieved;
+        public event MessageDelegate OnNewMessageRecieved;
 
-    public delegate void MessageDelegate(MessageInfo messageInfo);
+        public delegate void MessageDelegate(MessageInfo messageInfo);
+
+        public void SendNewMessage(string message);
+        public Sender GetCurrentSender();
+    }
 }

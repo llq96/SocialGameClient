@@ -1,10 +1,12 @@
 using UnityEngine;
-using Zenject;
 
-public class WebRequester
+namespace VladB.SGC
 {
-    public void Init()
+    public class WebRequester
     {
-        Debug.Log("TODO");
+        public void Init()
+        {
+            Debug.Log("TODO");
+        }
     }
 }

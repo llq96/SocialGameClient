@@ -1,29 +1,29 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Reflection;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public static partial class Extensions
+namespace VladB
 {
-    public static void RecursiveForceRebuildLayoutImmediate(this Transform tr)
+    public static partial class Extensions
     {
-        while (true)
+        public static void RecursiveForceRebuildLayoutImmediate(this Transform tr)
         {
-            if (tr == null) return;
-            var rectTransform = tr.GetComponent<RectTransform>();
-            if (rectTransform == null) return;
-            LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
-            tr = tr.parent;
+            while (true)
+            {
+                if (tr == null) return;
+                var rectTransform = tr.GetComponent<RectTransform>();
+                if (rectTransform == null) return;
+                LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
+                tr = tr.parent;
+            }
         }
-    }
 
-    public static bool IsDragging(this ScrollRect scrollRect)
-    {
-        Type type = typeof(ScrollRect);
-        FieldInfo myFieldInfo = type.GetField("m_Dragging", BindingFlags.NonPublic | BindingFlags.Instance);
-        return (bool)myFieldInfo!.GetValue(scrollRect);
+        public static bool IsDragging(this ScrollRect scrollRect)
+        {
+            Type type = typeof(ScrollRect);
+            FieldInfo myFieldInfo = type.GetField("m_Dragging", BindingFlags.NonPublic | BindingFlags.Instance);
+            return (bool)myFieldInfo!.GetValue(scrollRect);
+        }
     }
 }
