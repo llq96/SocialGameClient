@@ -63,7 +63,18 @@ namespace VladB.Utility.InfiniteScroll
                 var item = itemObject.GetComponent<T>();
                 var scrolledItem = new ScrolledItem<T>();
                 scrolledItem.Init(item);
+                scrolledItem.OnHeightChanged += OnHeightChanged;
                 _items.Add(scrolledItem);
+            }
+        }
+
+        private void OnHeightChanged(ScrolledItem<T> scrolledItem, float deltaHeight)
+        {
+            var anchoredY = scrolledItem.RectTransform.anchoredPosition.y;
+            if (anchoredY >= RightTopCorner.y + scrolledItem.RectTransform.rect.height * 0.5f)
+            {
+                FixRectScrolling(Vector2.down * deltaHeight);
+                ContentParent.transform.localPosition -= Vector3.down * deltaHeight;
             }
         }
 
@@ -112,6 +123,7 @@ namespace VladB.Utility.InfiniteScroll
 
         private void FixRectScrolling(Vector2 delta)
         {
+            // Debug.Log(delta);
             Type type = typeof(ScrollRect);
             FieldInfo myFieldInfo =
                 type.GetField("m_PointerStartLocalCursor", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -132,6 +144,7 @@ namespace VladB.Utility.InfiniteScroll
             _items.RemoveAt(0);
             _items.Add(firstView);
 
+            firstView.RectTransform.RecursiveForceRebuildLayoutImmediate();
             var height = firstView.RectTransform.rect.height;
             FixRectScrolling(Vector2.up * height);
             ContentParent.transform.localPosition += Vector3.down * height;
@@ -153,12 +166,12 @@ namespace VladB.Utility.InfiniteScroll
             _items.RemoveAt(_items.Count - 1);
             _items.Insert(0, lastView);
 
-            _swapHelper.MoveUpUpdateView(firstView, lastView);
-
             lastView.RectTransform.RecursiveForceRebuildLayoutImmediate();
             var height = lastView.RectTransform.rect.height;
             FixRectScrolling(Vector2.down * height);
             ContentParent.transform.localPosition -= Vector3.down * height;
+            _swapHelper.MoveUpUpdateView(firstView, lastView);
+            lastView.RectTransform.RecursiveForceRebuildLayoutImmediate();
             return true;
         }
 
@@ -189,6 +202,11 @@ namespace VladB.Utility.InfiniteScroll
                 ScrollRect.velocity = Vector2.up * _moveDownVelocity;
                 yield return new WaitForEndOfFrame();
             }
+        }
+
+        private void LateUpdate()
+        {
+            _items?.ForEach(x => x.Update());
         }
 
         public interface ISwapHelper

@@ -961,7 +961,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 995102185}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
   m_Name: 
@@ -1066,8 +1066,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2081181055}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1084,8 +1083,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _messagesScrollController: {fileID: 1446032103}
-  _mockMessagesModel: {fileID: 2081181056}
   _messageSenderView: {fileID: 530843387}
+  testString: '{"Message":"qwe"}'
 --- !u!1 &1229230812
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,7 +1288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _messagesScrollView: {fileID: 1446032104}
-  _prefabsCount: 10
+  _prefabsCount: 15
 --- !u!114 &1446032104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1787,66 +1786,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1992246588}
   m_CullTransparentMesh: 1
---- !u!1 &2081181054
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2081181055}
-  - component: {fileID: 2081181056}
-  m_Layer: 0
-  m_Name: MockMessagesModel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2081181055
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2081181054}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1183615363}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2081181056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2081181054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3f66fd1db087b64cb78591c3be8141c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _randomText: "To be, or not to be, that is the question: Whether 'tis nobler in
-    the mind to suffer The slings and arrows of outrageous fortune, Or to take arms
-    against a sea of troubles And by opposing end them. To die\u2014to sleep, No
-    more; and by a sleep to say we end The heart-ache and the thousand natural shocks
-    That flesh is heir to: 'tis a consummation Devoutly to be wish'd. To die, to
-    sleep; To sleep, perchance to dream\u2014ay, there's the rub: For in that sleep
-    of death what dreams may come, When we have shuffled off this mortal coil, Must
-    give us pause\u2014there's the respect That makes calamity of so long life. For
-    who would bear the whips and scorns of time, Th'oppressor's wrong, the proud
-    man's contumely, The pangs of dispriz'd love, the law's delay, The insolence
-    of office, and the spurns That patient merit of th'unworthy takes, When he himself
-    might his quietus make With a bare bodkin? Who would fardels bear, To grunt and
-    sweat under a weary life, But that the dread of something after death, The undiscovere'd
-    country, from whose bourn No traveller returns, puzzles the will, And makes us
-    rather bear those ills we have Than fly to others that we know not of? Thus conscience
-    doth make cowards of us all, And thus the native hue of resolution Is sicklied
-    o'er with the pale cast of thought, And enterprises of great pith and moment
-    With this regard their currents turn awry And lose the name of action."
-  _countRandomMessages: 1001

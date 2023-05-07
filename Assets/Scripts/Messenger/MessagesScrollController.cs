@@ -15,7 +15,7 @@ namespace VladB.SGC.Messenger
         {
             _messagesKeeper = messagesKeeper;
             _messagesKeeper.OnNewMessageRecieved += TryAddNewMessage;
-            var lastMessages = _messagesKeeper.GetLastMessages();
+            var lastMessages = _messagesKeeper.GetLastMessages(_prefabsCount);
             int countCanSpawn = Mathf.Min(lastMessages.Count, _prefabsCount);
             int startIndex = _prefabsCount - countCanSpawn;
 

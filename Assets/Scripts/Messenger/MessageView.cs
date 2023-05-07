@@ -8,21 +8,41 @@ namespace VladB.SGC.Messenger
         [SerializeField] private TextMeshProUGUI _tmp_message;
         [SerializeField] private TextMeshProUGUI _tmp_messageIndex;
         [SerializeField] private TextMeshProUGUI _tmp_senderName;
+
         public MessageInfo MessageInfo { get; private set; }
 
         public void SetMessage(MessageInfo messageInfo)
         {
+            if (messageInfo != null)
+            {
+                messageInfo.OnMessageInfoUpdated -= UpdateUI;
+            }
+
             MessageInfo = messageInfo;
 
-            _tmp_message.text = messageInfo.Message;
-            _tmp_messageIndex.text = $"Message ID : {messageInfo.Index}";
-            _tmp_senderName.text = messageInfo.Sender.Name;
+            MessageInfo.OnMessageInfoUpdated += UpdateUI;
+
+            UpdateUI();
+            MessageInfo.TryUpdateMessageInfo();
+        }
+
+        private void UpdateUI()
+        {
+            var height = transform.GetComponent<RectTransform>().rect.height;
+
+            _tmp_message.text = MessageInfo.Message;
+            _tmp_messageIndex.text = $"Message ID : {MessageInfo.Index}";
+            _tmp_senderName.text = MessageInfo.Sender != null ? MessageInfo.Sender.Name : "Unknown";
             // transform.RecursiveForceRebuildLayoutImmediate();
 
             _tmp_message.transform.RecursiveForceRebuildLayoutImmediate();
             _tmp_messageIndex.transform.RecursiveForceRebuildLayoutImmediate();
             _tmp_senderName.transform.RecursiveForceRebuildLayoutImmediate();
+
+            var newHeight = transform.GetComponent<RectTransform>().rect.height;
+            var deltaHeight = newHeight - height;
         }
+
 
         public void SetNullText()
         {
