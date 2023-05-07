@@ -1,4 +1,3 @@
-using Newtonsoft.Json;
 using UnityEngine;
 using VladB.SGC.Messenger;
 using Zenject;
